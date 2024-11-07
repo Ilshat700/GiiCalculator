@@ -30,6 +30,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
+
+
+
 @Composable
 fun CalculatorScreen() {
     var result by remember { mutableStateOf("0") }
@@ -42,13 +46,14 @@ fun CalculatorScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        // Использование цвета текста в зависимости от темы
         Text(
             text = result,
             fontSize = 36.sp,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
-            color = Color.Black
+            color = MaterialTheme.colorScheme.onBackground // цвет текста будет адаптироваться
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -94,12 +99,16 @@ fun CalculatorButton(label: String, onClick: () -> Unit) {
     Button(
         onClick = onClick,
         modifier = Modifier
-            .size(80.dp)
-            .background(Color.LightGray)
+            .size(80.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.primary, // фон кнопки
+            contentColor = MaterialTheme.colorScheme.onPrimary // цвет текста кнопки
+        )
     ) {
         Text(text = label, fontSize = 24.sp)
     }
 }
+
 
 fun calculateResult(input: String): String {
     return try {
